@@ -1,0 +1,12 @@
+/tmp/hadoop-2.2.0.tar.gz
+/tmp/jdk-7u67-linux-x64.tar.gz
+hadoop-env.sh
+core-site.xml
+hdfs-site.xml
+mapred-site.xml
+profile
+yarn-site.xml
+slaves
+capacity-scheduler.xml
+../libhadoop.so.1.0.0
+start-yarn.sh

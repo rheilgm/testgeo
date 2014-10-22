@@ -1,0 +1,5 @@
+artifacts:
+- artifact:
+     artifactid:     geomesa-distributed-runtime-accumulo1.5
+     groupid:     org.locationtech.geomesa
+     version:     1.0.0-SNAPSHOT

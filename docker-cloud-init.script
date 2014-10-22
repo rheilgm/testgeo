@@ -1,0 +1,44 @@
+#cloud-config for Ubuntu 14.04 LTS
+#
+# REMEMBER TO UDPATE DNSMASQ ENTRIES FOR NEW INSTANCE!
+# 
+# author: cott
+#
+# Creates a docker and docker-py ready instance with passwordless ssh via identity file ready.
+# Packages and configurations are applied in a specific order.  Please check with me before changing them.
+#
+# 
+
+#have cloud init manage the hosts file
+manage_etc_hosts: false
+
+runcmd:
+ - "apt-get update"
+ - "apt-get install -y apt-transport-https"
+ - "apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 36A1D7869245C8950F966E92D8576A8BA88D21E9"
+ - "rm /etc/apt/sources.list.d/docker.list"
+ - 'echo "deb https://get.docker.io/ubuntu docker main" > /etc/apt/sources.list.d/docker.list'
+ - "apt-get update"
+ - "apt-get install -y linux-image-extra-$(uname -r)"
+ - "apt-get install -y lxc-docker"
+ - "rm /etc/default/docker"
+ - 'echo DOCKER_OPTS=\"-dns 172.16.0.13 -H unix:///var/run/docker.sock -H tcp://127.0.0.1:5555\" > /etc/default/docker'
+ - "apt-get install -y python-pip python-yaml"
+ - "pip install docker-py"
+ - "service docker restart"
+ - "usermod -a -G docker ubuntu"
+ - "apt-get dist-upgrade -y"
+ - "reboot"
+
+
+
+
+
+
+#cloud-config for CentOS 6.5 with EPEL6 pre-installed (cloud version)
+#have cloud init manage the hosts file
+manage_etc_hosts: false
+
+runcmd:
+ - "yum update -y"
+ - "yum install -y docker-io"
